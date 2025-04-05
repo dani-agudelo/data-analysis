@@ -1,0 +1,294 @@
+Nombre de la columna
+Descripción
+Nombre del campo API
+Tipo de Dato
+FECHA
+Fecha de la ocurrencia del evento
+fecha
+Marca de tiempo variable
+DEPARTAMENTO
+Departamento de la ocurrencia del evento
+departamento
+Texto
+MUNICIPIO
+Municipio de la ocurrencia del evento
+municipio
+Texto
+EVENTO
+Clasificación del evento según el fenómeno natural o antrópico no intencional
+evento
+Texto
+DIVIPOLA
+Código DIVIPOLA, asignado por el DANE al municipio donde ocurrió el evento
+divipola
+Número
+FALLECIDOS
+Cantidad de personas fallecidas a causa del evento
+fallecidos
+Número
+HERIDOS
+Cantidad de personas heridas a causa del evento
+heridos
+Número
+DESAPARECIDOS
+Cantidad de personas desaparecidas a causa del evento
+desaparecidos
+Número
+PERSONAS
+Cantidad de personas afectadas a causa del evento
+personas
+Número
+FAMILIAS
+Cantidad de familias afectadas a causa del evento
+familias
+Número
+VIVIENDAS DESTRUIDAS
+Cantidad de viviendas destruidas por el evento
+viviendas_destruidas
+Número
+VIVIENDAS AVERIADAS
+Cantidad de viviendas averiadas por el evento
+viviendas_averiadas
+Número
+VIAS AVERIADAS
+Cantidad de vías afectadas por el evento
+vias_averiadas
+Número
+PUENTES VEHICULARES
+Cantidad de puentes vehículares afectados o averiados por el evento
+puentes_vehiculares
+Número
+PUENTES PEATONALES
+Cantidad de puentes peatonales afectados o averiados por el evento
+puentes_peatonales
+Número
+
+ACUEDUCTO
+Cantidad de acueductos afectados o averiados por el evento
+acueducto
+Número
+ALCANTARILLADO
+Cantidad de sistemas de alcantarillado afectados o averiados por el evento
+alcantarillado
+Número
+CENTROS DE SALUD
+Cantidad de centros de salud averiados/afectados por el evento
+centros_de_salud
+Número
+CENTROS EDUCATIVOS
+Cantidad de centros educativos averiados/afectados por el evento
+centros_educativos
+Número
+CENTROS COMUNITARIOS
+Cantidad de centros comunitarios averiados/afectados por el evento
+centros_comunitarios
+Número
+HECTAREAS
+Número de hectáreas destruidas por el evento
+hectareas
+Número
+OTROS-AFECTACION
+Otros tipos de daños o afectaciones generadas por el evento
+otros_afectacion
+Texto
+SUBSIDIO DE ARRIENDO
+Costo total de los subsidios de arriendo destinados a los damnificados por el evento
+subsidio_de_arriendo
+Texto
+ASISTENCIA NO ALIMENTARIA
+Costo total de Asistencia no Alimentaria
+asistencia_no_alimentaria
+Texto
+APOYO ALIMENTARIO
+Costo total del apoyo alimentario enviado para los damnificados por el evento
+apoyo_alimentario
+Texto
+MATERIALES CONSTRUCCION
+Costo total de los materiales de construcción enviados para la atención del evento
+materiales_construccion
+Texto
+SACOS - BIGBAG
+Costo total de los sacos y/o BIG BAG enviados para la atención del evento
+sacos_bigbag
+Texto
+OBRAS DE EMERGENCIA
+Costo total de Obras de Emergencia
+obras_de_emergencia
+Texto
+CARROTANQUES - MOTOBOMBAS-PLANTA POTABILIZADORA
+Costo total de los carrotanques y/o motobombas y/o plantas potabilizadoras enviadas para la atención del evento
+carrotanques_motobombas_planta
+Texto
+HORAS MAQUINA RETROEXCAVADORA BULLDOCER INTERVENTORIA
+Costo total de las horas máquina de retroexcavadora, bulldozer y/o interventoría utilizadas para la atención del evento
+horas_maquina_retroexcavadora
+Texto
+Nombre de la columna
+Descripción
+Nombre del camo API
+Tipo de Dato
+APOYO AEREO / TERRESTRE
+Costo total de los vuelos y soporte aéreo/ terrestre utilizado para la atención del evento
+apoyo_aereo_terrestre
+Texto
+FIC / TRANSFERENCIAS ECONOMICAS
+Costo total de las transferencias económicas realizadas a la entidad territorial, para la atención del evento
+fic_transferencias_economicas
+Texto
+INFRAESCTRUCTURA TECNOLOGICA
+Costo total de la Infraestructura Tecnológica realizada por la entidad territorial, para la atención del evento
+infraesctructura_tecnologica
+Texto
+RECURSOS EJECUTADOS
+Valor total de los recursos ejecutados en la atención del evento
+recursos_ejecutados
+Texto
+OTROS
+Valor total de Otros Recursos ejecutados en la atención del evento
+otros
+Texto
+CANTIDAD KIT DE ALIMENTO
+Cantidad de Kit de Alimento enviados para la atención de damnificados por el evento
+cantidad_kit_de_alimento
+Número
+VALOR KIT DE ALIMENTO
+Costo total Kit de Alimento enviados para la atención de damnificados por el evento
+valor_kit_de_alimento
+Texto
+CANTIDAD RACIONES DE CAMPAÑA
+Cantidad de Raciones de Campaña enviados para la atención de damnificados por el evento
+cantidad_raciones_de_campa
+Número
+VALOR RACIONES DE CAMPAÑA
+Valor total de Raciones de Campaña enviado para la atención de damnificados por el evento
+valor_raciones_de_campa_a
+Texto
+CANTIDAD KIT ASEO
+Cantidad de Kit de Aseo enviados para la atención de damnificados por el evento
+cantidad_kit_aseo
+Número
+VALOR KIT ASEO
+Valor total de Kit de Aseo enviado para la atención de damnificados por el evento
+valor_kit_aseo
+Texto
+CANTIDAD KIT COCINA
+Cantidad de Kit de Cocina enviados para la atención de damnificados por el evento
+cantidad_kit_cocina
+Número
+VALOR KIT COCINA
+Valor total de Kit de Cocina enviado para la atención de damnificados por el evento
+valor_kit_cocina
+Texto
+CANTIDAD COLCHONETA
+Cantidad de Colchonetas enviadas para la atención de damnificados por el evento
+cantidad_colchoneta
+Número
+VALOR COLCHONETA
+Valor total de colchonetas enviadas para la atención de damnificados por el evento
+valor_colchoneta
+Texto
+
+CANTIDAD FRAZADAS/ SOBRECAMAS
+Cantidad de frazadas/ sobrecamas enviadas para la atención de damnificados por el evento
+cantidad_frazadas_sobrecamas
+Número
+VALOR FRAZADAS/ SOBRECAMAS
+Valor total de frazadas/ sobrecamas enviadas para la atención de damnificados por el evento
+valor_frazadas_sobrecamas
+Texto
+CANTIDAD SABANAS / COBIJA SENCILLA
+Cantidad de sabanas/ cobija sencilla enviadas para la atención de damnificados por el evento
+cantidad_sabanas_cobija
+Número
+VALOR SABANAS / COBIJA SENCILLA
+Valor total de sabanas/ cobija sencilla enviadas para la atención de damnificados por el evento
+valor_sabanas_cobija_sencilla
+Texto
+CANTIDAD HAMACAS
+Cantidad de Hamacas enviadas para la atención de damnificados por el evento
+cantidad_hamacas
+Número
+VALOR HAMACAS
+Valor total de Hamacas enviadas para la atención de damnificados por el evento
+valor_hamacas
+Texto
+CANTIDAD TOLDILLOS
+Cantidad de Toldillos enviados para la atención de damnificados por el evento
+cantidad_toldillos
+Número
+VALOR TOLDILLOS
+Valor total de Toldillos enviados para la atención de damnificados por el evento
+valor_toldillos
+Texto
+CANTIDAD CARPAS
+Cantidad de Carpas enviadas para la atención de damnificados por el evento
+cantidad_carpas
+Número
+VALOR CARPAS
+Valor total de Carpas enviadas para la atención de damnificados por el evento
+valor_carpas
+Texto
+VALOR TOTAL ASISTENCIA NO ALIMENTARIA
+Valor total de Asistencia no Alimentaria enviadas para la atención de damnificados por el evento
+valor_total_asistencia_no
+Texto
+CANTIDAD PLASTICO NEGRO
+Cantidad de Plástico Negro enviado para la atención de damnificados por el evento
+cantidad_plastico_negro
+Número
+VALOR PLASTICO NEGRO
+Valor total de Plástico Negro enviado para la atención de damnificados por el evento
+valor_plastico_negro
+Texto
+CANTIDAD SACOS
+Cantidad de sacos enviados para la atención de damnificados por el evento
+cantidad_sacos
+Número
+VALOR SACOS
+Valor total de Sacos enviados para la atención de damnificados por el evento
+valor_sacos
+Texto
+CANTIDAD BIG BAG
+Cantidad de Big Bag enviados para la atención de damnificados por el evento
+cantidad_big_bag
+Número
+VALOR BIG BAG
+Valor total de Big Bag enviados para la atención de damnificados por el evento
+valor_big_bag
+Texto
+CANTIDAD CEMENTO
+Cantidad de bolsas de Cemento enviado para la atención de damnificados por el evento
+cantidad_cemento
+Número
+VALOR CEMENTO
+Valor total de bolsas Cemento enviado para la atención de damnificados por el evento
+valor_cemento
+Texto
+CANTIDAD TEJAS DE ZINC
+Cantidad de Tejas de Zinc enviadas para la atención de damnificados por el evento
+cantidad_tejas_de_zinc
+Número
+VALOR TEJAS DE ZINC
+Valor total de Tejas de Zinc enviadas para la atención de damnificados por el evento
+valor_tejas_de_zinc
+Texto
+CANTIDAD TEJAS DE FIBROCEMENTO
+Cantidad de Tejas de Fibrocemento enviadas para la atención de damnificados por el evento
+cantidad_tejas_de_fibrocemento
+Número
+VALOR TEJAS DE FIBROCEMENTO
+Valor total de Tejas de Fibrocemento enviadas para la atención de damnificados por el evento
+valor_tejas_de_fibrocemento
+Texto
+DESCRIPCION MATERIALES DE CONSTRUCCION
+Descripción de otros materiales de construcción enviados para la atención del evento
+descripcion_materiales_de
+Texto
+VALOR MATERIALES DE CONSTRUCCION
+Costo total de los otros materiales de construcción enviados para la atención del evento
+valor_materiales_de
+Texto
+VALOR TOTAL APOYO DEL FNGRD
+Costo total de las ayudas enviadas para la atención del evento, provenientes del Fondo Nacional de Gestión del Riesgo de Desastres- FNGRD
+valor_total_apoyo_del_fngrd
+Texto

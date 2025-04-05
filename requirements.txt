@@ -5,7 +5,7 @@ scikit-learn
 plotly
 mlxtend
 imbalanced-learn
-seaborn 
+seaborn
 matplotlib
 networkx
 requests
