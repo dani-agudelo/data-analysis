@@ -167,6 +167,10 @@ dataset_sin_nans = pd.merge(
 # (Opcional) Eliminar la columna "Código" duplicada después del merge si ya no la necesitas
 dataset_sin_nans.drop(columns=["Código"], inplace=True)
 
+# Reemplazar coma por punto y convertir a float
+dataset_sin_nans["Latitud"] = dataset_sin_nans["Latitud"].astype(str).str.replace(",", ".").astype(float)
+dataset_sin_nans["Longitud"] = dataset_sin_nans["Longitud"].astype(str).str.replace(",", ".").astype(float)
+
 # Guardar el dataset_sin_nans actualizado
 dataset_sin_nans.to_csv(RUTA_DATASET_LIMPIO, index=False)
 print(f"Dataset actualizado guardado en {RUTA_DATASET_LIMPIO}")
