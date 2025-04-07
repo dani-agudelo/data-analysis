@@ -6,176 +6,211 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 RUTA_DATASET = "data/Emergencias.csv"
 RUTA_DATASET_LIMPIO = "data/emergencias_limpio.csv"
 dataset = pd.read_csv(RUTA_DATASET, sep=",", encoding="utf-8")
-# ---------------------------------------------
-# A0. Convertir columnas que parecen numéricas pero están como texto
-# ---------------------------------------------
 
-for col in dataset.columns:
-    # Verificar si el nombre de la columna contiene palabras clave que indican valores numéricos
-    if any(
-        palabra in col.upper()
-        for palabra in [
-            "COSTE",
-            "PRECIO",
-            "GASTO",
-            "VALOR",
-            "RECURSOS",
-            "FIC",
-            "TRANSFERENCIAS",
-            "RETROEXCAVADORA",
-            "CARROTANQUES",
-            "OBRAS",
-            "SACOS",
-            "MATERIALES",
-            "ASISTENCIA",
-            "SUBSIDIO",
-            "APOYO",
-            "OTROS",
-            "INFRA",
-        ]
-    ):
-        # Primero limpiar los valores
-        dataset[col] = dataset[col].astype(str)
-        dataset[col] = dataset[col].str.replace(" ", "")
-        dataset[col] = dataset[col].str.replace(",", "")
-        dataset[col] = dataset[col].str.replace("$", "")
+# 1. Convertir columnas que parecen numéricas pero están como texto
 
-        # Convertir a valores numéricos
-        dataset[col] = pd.to_numeric(dataset[col], errors="coerce")
+def convertir_a_numerico(dataset: pd.DataFrame):
+    for col in dataset.columns:
+        # Verificar si el nombre de la columna contiene palabras clave que indican valores numéricos
+        if any(
+            palabra in col.upper()
+            for palabra in [
+                "COSTE",
+                "PRECIO",
+                "GASTO",
+                "VALOR",
+                "RECURSOS",
+                "FIC",
+                "TRANSFERENCIAS",
+                "RETROEXCAVADORA",
+                "CARROTANQUES",
+                "OBRAS",
+                "SACOS",
+                "MATERIALES",
+                "ASISTENCIA",
+                "SUBSIDIO",
+                "APOYO",
+                "OTROS",
+                "INFRA",
+            ]
+        ):
+            # Primero limpiar los valores
+            dataset[col] = dataset[col].astype(str)
+            dataset[col] = dataset[col].str.replace(" ", "")
+            dataset[col] = dataset[col].str.replace(",", "")
+            dataset[col] = dataset[col].str.replace("$", "")
 
-        # Reemplazar NaN con el promedio de la columna (forma segura)
-        if dataset[col].isnull().any():
-            dataset[col] = dataset[col].fillna(dataset[col].mean())
+            # Convertir a valores numéricos
+            dataset[col] = pd.to_numeric(dataset[col], errors="coerce")
 
+            # Reemplazar NaN con el promedio de la columna (forma segura)
+            if dataset[col].isnull().any():
+                dataset[col] = dataset[col].fillna(dataset[col].mean())
 
-# Información básica del dataset con minimo, maximo y media sólo en columnas numéricas
-print(dataset.describe())
+convertir_a_numerico(dataset)
 
-# print(dataset["OTROS-AFECTACION"].unique())
-# print(dataset["DESCRIPCION MATERIALES DE CONSTRUCCION"].unique())
-
-## A1. Aplicación de mapeo con una función de limpieza para las variables categóricas
+# 2. Limpieza a variables categóricas
 def limpieza_categoricas(dataset: pd.DataFrame):
     # Primero tomamos las variables categóricas
     dataset_categoricas = dataset.select_dtypes(include=["object"])
-    print(dataset_categoricas.columns)
+    print(dataset_categoricas.columns, 'antes')
 
     # Pasamos el contenido de las columnas a mayúsculas
     dataset_categoricas = dataset_categoricas.apply(lambda x: x.str.upper() if x.dtype == "object" else x)
 
-
-## A2. Aplicación de mapeo con otra función de limpieza para las variables categóricas
-
 limpieza_categoricas(dataset)
-print(dataset.columns, 'miremos')
 
+# 3   Manejo de valores nulos
+def manejo_nulos(dataset: pd.DataFrame):
+    print("Valores nulos en cada columna:")
+    for col in dataset.columns:
+        print(f"{col}: {dataset[col].isnull().sum()}")
 
-### B1. Determinar valores nulos
-# Revisar columna a columna los valores nulos y mostrarlos ordenados ASC
-print("Valores nulos en cada columna:")
-# for col in dataset.columns:
-    # print(f"{col}: {dataset[col].isnull().sum()}")
-    # print(f"{col}: {dataset[col].isnull().sum()}")
+    print(dataset.isnull().sum().sort_values(ascending=False))
+    print(f"Cantidad total de filas: {dataset.shape[0]}")
 
-print(dataset.isnull().sum().sort_values(ascending=False))
+    COL_OTROS_AFECTACION = 'OTROS-AFECTACION'
+    COL_DESCRIPCION_MATERIALES = 'DESCRIPCION MATERIALES DE CONSTRUCCION'
 
-print(f"Cantidad total de filas: {dataset.shape[0]}")
+    # Porcentaje de NAN en las columnas mencionadas: Si pasa del 1% se eliminará la columna
+    prob_drop_otros = dataset[COL_OTROS_AFECTACION].isnull().sum() / dataset.shape[0]
+    prob_drop_desc = dataset[COL_DESCRIPCION_MATERIALES].isnull().sum() / dataset.shape[0]
 
-COL_OTROS_AFECTACION = 'OTROS-AFECTACION'
-COL_DESCRIPCION_MATERIALES = 'DESCRIPCION MATERIALES DE CONSTRUCCION'
+    print(f"Probabilidad de eliminar {COL_OTROS_AFECTACION}: {prob_drop_otros}")
+    print(f"Probabilidad de eliminar {COL_DESCRIPCION_MATERIALES}: {prob_drop_desc}")
 
+    # Eliminar columnas con menos del 5% de valores no nulos
+    columnas_a_eliminar = []
+    if prob_drop_otros > 0.95:
+        columnas_a_eliminar.append(COL_OTROS_AFECTACION)
+    if prob_drop_desc > 0.95:
+        columnas_a_eliminar.append(COL_DESCRIPCION_MATERIALES)
 
-# Porcentaje de NAN en las columnas mencionadas: Si pasa del 1% se eliminará la columna
+    # Eliminar solo si hay columnas para eliminar
+    dataset = dataset.drop(columns=columnas_a_eliminar)
+    return dataset
 
-prob_drop_otros = dataset[COL_OTROS_AFECTACION].isnull().sum() / dataset.shape[0]
-prob_drop_desc = dataset[COL_DESCRIPCION_MATERIALES].isnull().sum() / dataset.shape[0]
+dataset = manejo_nulos(dataset)
 
+# 4. Procesar la columna DIVIPOLA para obtener latitud y longitud
+def procesar_divipola(dataset: pd.DataFrame, ruta_municipios: str) -> pd.DataFrame:
+    """
+    Procesa la columna DIVIPOLA del dataset, realizando un merge con un archivo externo
+    que contiene información de latitud y longitud.
 
-print(f"Probabilidad de eliminar {COL_OTROS_AFECTACION}: {prob_drop_otros}")
-print(f"Probabilidad de eliminar {COL_DESCRIPCION_MATERIALES}: {prob_drop_desc}")
+    Args:
+        dataset (pd.DataFrame): El dataset principal.
+        ruta_municipios (str): Ruta al archivo de municipios (Excel) con columnas 'Código', 'Latitud', 'Longitud'.
 
+    Returns:
+        pd.DataFrame: El dataset actualizado con las columnas de latitud y longitud.
+    """
+    # Cargar el archivo de código de municipios
+    df_municipios = pd.read_excel(ruta_municipios)
 
-# Eliminar columnas con menos del 5% de valores no nulos #
+    # Asegurar que las columnas tengan el mismo tipo
+    dataset["DIVIPOLA"] = dataset["DIVIPOLA"].astype(str)
+    df_municipios["Código"] = df_municipios["Código"].astype(str)
 
-columnas_a_eliminar = []
+    # Hacer merge entre DIVIPOLA (dataset) y Código (df_municipios), añadiendo solo Latitud y Longitud
+    dataset = pd.merge(
+        dataset,
+        df_municipios[["Código", "Latitud", "Longitud"]],
+        left_on="DIVIPOLA",
+        right_on="Código",
+        how="left"
+    )
 
-if prob_drop_otros > 0.95:
-    columnas_a_eliminar.append(COL_OTROS_AFECTACION)
-if prob_drop_desc > 0.95:
-    columnas_a_eliminar.append(COL_DESCRIPCION_MATERIALES)
+    # (Opcional) Eliminar la columna "Código" duplicada después del merge si ya no la necesitas
+    dataset.drop(columns=["Código"], inplace=True)
 
-# Eliminar solo si hay columnas para eliminar
-dataset_sin_nans = dataset.drop(columns=columnas_a_eliminar)
+    # Reemplazar coma por punto y convertir a float
+    dataset["Latitud"] = dataset["Latitud"].astype(str).str.replace(",", ".").astype(float)
+    dataset["Longitud"] = dataset["Longitud"].astype(str).str.replace(",", ".").astype(float)
 
-### B2. Eliminación de valores atípicos (outliers) o su normalización
+    return dataset
 
-# Normalización de tejas fibrocemento (variable categórica) con una media de 0 y desviación estándar de 1
+# Llamar a la función procesar_divipola
+RUTA_MUNICIPIOS = "data/codigo_municipios.xlsx"
+dataset = procesar_divipola(dataset, RUTA_MUNICIPIOS)
 
-# 1. Identificar columnas categóricas
-columnas_categoricas = dataset.select_dtypes(include=["object"]).columns
+# 5. Limpia y unifica los nombres de los eventos en la columna especificada.
+def limpiar_eventos(dataset: pd.DataFrame, columna_evento: str) -> pd.DataFrame:
+    
+    # Diccionario de correcciones: clave es el valor incorrecto, valor es el correcto
+    correcciones = {
+        "INMERSIoN": "INMERSION",
+        "IMERSION": "INMERSION",
+        "INUNDACIoN": "INUNDACION",
+        "INUNDACIÓN": "INUNDACION",
+        "Movimiento en Masa": "MOVIMIENTO EN MASA",
+        "Creciente Subita": "CRECIENTE SUBITA",
+        "ACCIDENTE TRANSPORTE MARÍTIMO O FLUVIAL": "ACCIDENTE TRANSPORTE MARITIMO O FLUVIAL",
+        "ACCIDENTE TRANSPORTE AÉREO": "ACCIDENTE TRANSPORTE AEREO",
+        "ACCIDENTE AÉREO": "ACCIDENTE TRANSPORTE AEREO"
+    }
 
-# 2. Método 1: Usar Label Encoding (asigna un número a cada categoría)
-# Útil para calcular media/moda después
-# le = LabelEncoder()
-# for col in columnas_categoricas:
-#     # Primero rellenar NaN con la moda
-#     moda = columnas_categoricas[col].mode()[0]
-#     columnas_categoricas[col] = columnas_categoricas[col].fillna(moda)
+    # Convertir todos los valores a mayúsculas para evitar problemas de comparación
+    dataset[columna_evento] = dataset[columna_evento].str.upper()
 
-#     # Convertir a numérico con LabelEncoder
-#     columnas_categoricas[f"{col}_encoded"] = le.fit_transform(columnas_categoricas[col])
+    # Reemplazar los valores incorrectos usando el diccionario de correcciones
+    dataset[columna_evento] = dataset[columna_evento].replace(correcciones)
 
-#     # Ahora puedes calcular estadísticas sobre la versión codificada
-#     print(f"Media de {col}: {columnas_categoricas[f'{col}_encoded'].mean()}")
-#     print(f"Moda de {col}: {columnas_categoricas[f'{col}_encoded'].mode()[0]}")
+    return dataset
 
+# Llamar a la función para limpiar los eventos
+dataset = limpiar_eventos(dataset, "EVENTO")
 
-# for col in dataset.columns:
-#     print(f"Valores únicos en {col}: {dataset[col].unique()}")
+# 6. Mover eventos raros a la categoría "OTROS"
+def mover_eventos_unicos_a_otros(dataset: pd.DataFrame, columna_evento: str) -> pd.DataFrame:
+    # Contar la cantidad de registros por evento
+    conteo_eventos = dataset[columna_evento].value_counts()
 
+    # Identificcar eventos con menos de 5 registros
+    eventos_unicos = conteo_eventos[conteo_eventos < 10].index.tolist()
+    # Imprimir eventos únicos y su cantidad
 
-### B1. Determinar valores nulos y rellenarlos
+    # Reemplazar los eventos únicos por "OTROS"
+    dataset[columna_evento] = dataset[columna_evento].replace(eventos_unicos, "OTROS")
+    
+    
 
+    return dataset
 
-# C1. Exportar el dataset limpio a un archivo CSV
-dataset_sin_nans.to_csv(
-    RUTA_DATASET_LIMPIO,
-    index=False,
-)
+# Llamar a la función para mover los eventos únicos a "OTROS"
+dataset = mover_eventos_unicos_a_otros(dataset, "EVENTO")
 
+# 7 Unificar tipos de incendios
+def unificar_incendios(dataset: pd.DataFrame, columna_evento: str) -> pd.DataFrame:
+    # Definir los tipos de incendios a unificar
+    tipos_incendio = [
+        "INCENDIO ESTRUCTURAL",
+        "INCENDIO DE COBERTURA VEGETAL",
+        "INCENDIO VEHICULAR",
+    ]
 
-## DIVIPOLA
+    # Reemplazar todos los tipos de incendios por "INCENDIO"
+    dataset[columna_evento] = dataset[columna_evento].replace(tipos_incendio, "INCENDIO")
 
-# Recorremos el dataset y mergeamos las columnas DIVIPOLA con Código, Longitud y Latitud del archivo codigo_municipios de excel
+    return dataset
 
-# Cargar el archivo de código de municipios
-df_municipios = pd.read_excel("data/codigo_municipios.xlsx")
+unificar_incendios(dataset, "EVENTO")
 
-# Asegurar que las columnas tengan el mismo tipo
-dataset_sin_nans["DIVIPOLA"] = dataset_sin_nans["DIVIPOLA"].astype(str)
-df_municipios["Código"] = df_municipios["Código"].astype(str)
-
-# Hacer merge entre DIVIPOLA (dataset) y Código (df_municipios), añadiendo solo Latitud y Longitud
-dataset_sin_nans = pd.merge(
-    dataset_sin_nans,
-    df_municipios[["Código", "Latitud", "Longitud"]],
-    left_on="DIVIPOLA",
-    right_on="Código",
-    how="left"
-)
-
-# (Opcional) Eliminar la columna "Código" duplicada después del merge si ya no la necesitas
-dataset_sin_nans.drop(columns=["Código"], inplace=True)
-
-# Reemplazar coma por punto y convertir a float
-dataset_sin_nans["Latitud"] = dataset_sin_nans["Latitud"].astype(str).str.replace(",", ".").astype(float)
-dataset_sin_nans["Longitud"] = dataset_sin_nans["Longitud"].astype(str).str.replace(",", ".").astype(float)
-
-# Guardar el dataset_sin_nans actualizado
-dataset_sin_nans.to_csv(RUTA_DATASET_LIMPIO, index=False)
+# Guardar el dataset actualizado
+dataset.to_csv(RUTA_DATASET_LIMPIO, index=False)
 print(f"Dataset actualizado guardado en {RUTA_DATASET_LIMPIO}")
-# print(dataset_sin_nans.head())
-# print(dataset_sin_nans.describe())
-# print(dataset_sin_nans.info())
+
+# imprimir las filas unicas de evento y la cantidad
+def imprimir_eventos_unicos(dataset: pd.DataFrame):
+    eventos_unicos = dataset["EVENTO"].unique()
+    # imprimir cantidad de eventos unicos
+    print(f"Cantidad de eventos únicos: {len(eventos_unicos)}")
+    print("Eventos únicos y su cantidad:")
+    for evento in eventos_unicos:
+        cantidad = dataset[dataset["EVENTO"] == evento].shape[0]
+        print(f"{evento}: {cantidad}")
+        
+# Imprimir eventos únicos después de la limpieza
+imprimir_eventos_unicos(dataset)
 
 

@@ -1,0 +1,75 @@
+Se hace Smote porque hay un ratio de 7634, un desbalance extremadamente 
+alto entre tus clases. Esto significa que tu evento más común aparece
+ 7,634 veces más que el evento más raro en tu conjunto de datos
+
+
+
+ Diferencia arbol de decision y random forest
+
+Árbol de Decisión
+Imagina un solo árbol con ramas y hojas:
+
+Es un único modelo que toma decisiones siguiendo un camino desde la raíz hasta una hoja
+Cada nodo (punto de decisión) divide los datos basándose en una característica
+Al final llegas a una respuesta (una clasificación)
+
+Ejemplo visual:
+ ¿Latitud > 5.0?
+               /        \
+              /          \
+           Sí             No
+           /                \
+¿Mes = Abril?           ¿Longitud < -74?
+     /    \                 /        \
+    Sí     No              Sí         No
+    /       \              /           \
+Inundación  Incendio    Deslizamiento  Sequía
+
+
+
+Se eliminan cositas porque no da para el random forest
+Cantidad de eventos únicos: 44
+Eventos únicos y su cantidad:
+INCENDIO ESTRUCTURAL: 1524
+INMERSION: 93
+INCENDIO DE COBERTURA VEGETAL: 7634        
+COLAPSO ESTRUCTURAL: 314
+MOVIMIENTO EN MASA: 6106
+ACCIDENTE MINERO: 197
+ACCIDENTE TRANSPORTE TERRESTRE: 227
+GRANIZADA: 152
+ACCIDENTE TRANSPORTE MARITIMO O FLUVIAL: 95
+VENDAVAL: 1710
+INUNDACION: 4434
+OTROS: 13
+EROSION: 67
+EXPLOSION: 73
+AGLOMERACIÓN DE PÚBLICO: 2
+ACTIVACIÓN VOLCANICA: 3
+FUGA: 12
+ACCIDENTE TECNOLOGICO: 11
+AVENIDA TORRENCIAL: 557
+DERRAME: 20
+INCENDIO: 16
+SEQUIA: 89
+ACCIDENTE TRANSPORTE AEREO: 77
+TORMENTA ELECTRICA: 59
+EVENTO MAYOR: 4
+SISMO: 38
+TEMPORAL: 656
+FALLA ESTRUCTURAL: 3
+CASO FORTUITO: 83
+CRECIENTE SUBITA: 1428
+ACCIDENTE: 1
+EROSION COSTERA: 9
+HELADA: 47
+CONATO: 1
+COLAPSO: 1
+DIAPIRISMO: 1
+INCENDIO VEHICULAR: 2
+COVID-19: 1
+CICLON TROPICAL: DEPRESION/TORMENTA/HURACAN: 15
+QUEMA: 2
+LLUVIAS: 70
+ONDA TROPICAL: 4
+DAÑO: 3
