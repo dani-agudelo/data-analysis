@@ -94,17 +94,6 @@ dataset = manejo_nulos(dataset)
 
 # 4. Procesar la columna DIVIPOLA para obtener latitud y longitud
 def procesar_divipola(dataset: pd.DataFrame, ruta_municipios: str) -> pd.DataFrame:
-    """
-    Procesa la columna DIVIPOLA del dataset, realizando un merge con un archivo externo
-    que contiene información de latitud y longitud.
-
-    Args:
-        dataset (pd.DataFrame): El dataset principal.
-        ruta_municipios (str): Ruta al archivo de municipios (Excel) con columnas 'Código', 'Latitud', 'Longitud'.
-
-    Returns:
-        pd.DataFrame: El dataset actualizado con las columnas de latitud y longitud.
-    """
     # Cargar el archivo de código de municipios
     df_municipios = pd.read_excel(ruta_municipios)
 

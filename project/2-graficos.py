@@ -100,19 +100,19 @@ def matriz_correlacion():
 grafica_fallecidos()
 
 
-# # Gráfico de dispersión entre dos variables
-# # Crear un gráfico de dispersión
-# fig = px.scatter(
-#     df,
-#     x="FALLECIDOS",
-#     y="HERIDOS",
-#     color="EVENTO",
-#     title="Gráfico de dispersión entre FALLECIDOS y HERIDOS",
-# )
-# # Actualizar el layout
-# fig.update_layout(
-#     xaxis_title="FALLECIDOS",
-#     yaxis_title="HERIDOS",
-#     width=800,
-#     height=600,
-# )
+# Gráfico de dispersión entre dos variables
+# Crear un gráfico de dispersión
+fig = px.scatter(
+    df,
+    x="FALLECIDOS",
+    y="HERIDOS",
+    color="EVENTO",
+    title="Gráfico de dispersión entre FALLECIDOS y HERIDOS",
+)
+# Actualizar el layout
+fig.update_layout(
+    xaxis_title="FALLECIDOS",
+    yaxis_title="HERIDOS",
+    width=800,
+    height=600,
+)
